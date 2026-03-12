@@ -17,7 +17,7 @@ using namespace std; //organiza funciones en paquetes (namespaces) e indica el u
 		vector<Producto> ListaDeCosas; 	
 	
 	public: 
-		void datosIniciales(){
+		void datosIniciales(){ //Aqui se digitan los 10 primeros datos iniciales que pide el enunciado
 			ListaDeCosas.push_back({100, "Leche 1lt", 1.00, 7});
 			ListaDeCosas.push_back({101, "Huevos cubeta", 3.50, 13});
 			ListaDeCosas.push_back({102, "Fideos 400g", 1.00, 10});
@@ -79,7 +79,8 @@ using namespace std; //organiza funciones en paquetes (namespaces) e indica el u
 			cin >> idBuscar;
 			
 			for(int i=0; i<ListaDeCosas.size(); i++){
-				if (ListaDeCosas[i].IdProducto == idBuscar){
+				if (ListaDeCosas[i].IdProducto == idBuscar){ //iteracion con for que permite, mediante comparaciones en un recorrido
+															 //encontrar la ID similar y modificar
 					cout << "\nProducto localizado" << endl;
 					cout << "Nombre: " << ListaDeCosas[i].nombre << endl;	
 					cout << "Precio: $" << ListaDeCosas[i].precio << endl;
@@ -94,29 +95,29 @@ using namespace std; //organiza funciones en paquetes (namespaces) e indica el u
 			}	
 		}
 		
-		void modificarProducto(){
+		void modificarProducto(){ //funcion que me permite modificar los datos de un producto 
 			int idModificar;
-			bool encontrado = false;
+			bool encontrado = false; //se empean un dato booleano para cuando se encuentre le producto similar de true
 			cout << "\nDigite el ID del producto que desea modificar: ";
 			cin >> idModificar;
 			
 			for(int i=0; i<ListaDeCosas.size(); i++){
-				if (ListaDeCosas[i].IdProducto == idModificar){
+				if (ListaDeCosas[i].IdProducto == idModificar){ //interaccion del for que compara las ID hasta encontrar su similar
 					int seleccion;
 					cout << "\nProducto localizado" << endl;
 					cout << "Nombre: " << ListaDeCosas[i].nombre << endl;	
 					cout << "Precio: $" << ListaDeCosas[i].precio << endl;
 					cout << "Stock disponible: " << ListaDeCosas[i].stock << endl;
 					encontrado = true;
-					cout << "Continuar la modificacion [SI = 1] [NO = 0]: ";
+					cout << "Continuar la modificacion [SI = 1] [NO = 0]: "; //estructura de validacion
 					cin >> seleccion;
 					
 					if (seleccion == 1 ){
 						cout << "Digite los nuevos datos del producto: " << endl;
 						
-						cin.ignore();
+						cin.ignore(); //estructura que ignora los espacios entre nombres y toma todos los datos digitados
 						cout << "Nuevo nombre: ";
-						getline(cin, ListaDeCosas[i].nombre);
+						getline(cin, ListaDeCosas[i].nombre); //toma la linea ingresada por el usuario y la imprime 
 						
 						cout << "Nuevo precio: ";
 						cin >> ListaDeCosas[i].precio;
@@ -136,15 +137,15 @@ using namespace std; //organiza funciones en paquetes (namespaces) e indica el u
 				}
 			}
 			
-			void eliminarProducto(){
+			void eliminarProducto(){ //funcion que me perite eliminar un producto especifico mediante el ID
 				int idEliminar;
-				bool encontrado = false;
+				bool encontrado = false; //se emplea un dato booleano para validadr cuando se encuentre el producto
 				
 				cout << "\nDigite el ID del producto a eliminar: ";
 				cin >> idEliminar;
 				
 				for(int i=0; i<ListaDeCosas.size(); i++){
-					if (ListaDeCosas[i].IdProducto == idEliminar){
+					if (ListaDeCosas[i].IdProducto == idEliminar){ //interaccion del for que compara las ID hasta encontrar su similar
 						int seleccion;
 						encontrado = true;
 						cout << "\nProducto localizado" << endl;
@@ -153,11 +154,11 @@ using namespace std; //organiza funciones en paquetes (namespaces) e indica el u
 						cout << "Stock disponible: " << ListaDeCosas[i].stock << endl;
 						
 						encontrado = true;
-						cout << "Continuar con la extradicion [SI = 1] [NO = 0]: ";
+						cout << "Continuar con la extradicion [SI = 1] [NO = 0]: "; //estructura de validacion 
 						cin >> seleccion;
 						
 						if(seleccion == 1){
-							ListaDeCosas.erase(ListaDeCosas.begin() + i);
+							ListaDeCosas.erase(ListaDeCosas.begin() + i); //linea que elimina el producto
 							cout << "Producto eliminado correctamente";
 							break;
 						}else{
@@ -170,7 +171,8 @@ using namespace std; //organiza funciones en paquetes (namespaces) e indica el u
 				}
 			}
 			
-			void generarReporteFinal() {
+			void generarReporteFinal() { //funcion donde se genera el reporte final imprimiendo el total de productos, el producto mas caro
+										 //y la inversion total que lleva el inventario
     			double inversionTotal = 0;
     			int productoMasCaroIdx = 0;
 
@@ -191,12 +193,12 @@ using namespace std; //organiza funciones en paquetes (namespaces) e indica el u
 			
 		};
 	
-	int main(){
-		Tienda MiTienda;
+	int main(){ //funcion main en donde se ejecutara las funciones de clase tienda
+		Tienda MiTienda; //creamos la tienda (objeto)
 		MiTienda.datosIniciales();
 		
 		int menu;
-		do {
+		do { //implementacion del menu interactivo
 			cout << "\n--- MENU TIENDA ---" << endl;
         	cout << "1. Mostrar Inventario" << endl;
         	cout << "2. Registrar Producto" << endl;
@@ -208,7 +210,8 @@ using namespace std; //organiza funciones en paquetes (namespaces) e indica el u
         	cout << "Seleccione una opcion: ";
         	cin >> menu;
         	
-        	switch (menu){
+        	switch (menu){ //se emplea una estructura de control switch la cual
+        				   //me permite interactuar con el menu de manera sencilla
         		case 1:
         			MiTienda.mostrarListaDeCosas();
         			break;
@@ -233,7 +236,7 @@ using namespace std; //organiza funciones en paquetes (namespaces) e indica el u
             	default:
                 	cout << "Opcion no valida." << endl;	
 			}
-		}while (menu != 7);
+		}while (menu != 7); //sentencia que indica que si el usuario ingresa un dato mayor a 7 el programa se cierra
 		
 		return 0;
 	}
